@@ -6,12 +6,9 @@ para iniciar el juego con una de ellas
 -Que pinte los guiones bajos automaticamente dependiendo del tamaño de la palabra
 
 */
-import java.awt.Graphics;
+
 import java.awt.Image;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /*
@@ -37,34 +34,55 @@ public class Ahorcado extends javax.swing.JFrame {
     public Ahorcado() {
         initComponents();
         //aqui va el codigo que poniamos en el run en ACM
+        cambiaImagenAhorcado();
     }
 
-   @Override
-   public void paint(Graphics g){
-       super.paint(g);
-       //con esto indicamos que vamos a dibujar en el panel
-       g = jPanel1.getGraphics();
-       Image miImagen = null;
-        try {
-            //cargamos una imagen
-            switch(numeroFallos){
-                case 0: miImagen = ImageIO.read(getClass().getResource("/ahorcado_0.png")); break;
-                case 1: miImagen = ImageIO.read(getClass().getResource("/ahorcado_1.png")); break;
-                case 2: miImagen = ImageIO.read(getClass().getResource("/ahorcado_2.png")); break;
-                case 3: miImagen = ImageIO.read(getClass().getResource("/ahorcado_3.png")); break;
-                case 4: miImagen = ImageIO.read(getClass().getResource("/ahorcado_4.png")); break;
-                case 5: miImagen = ImageIO.read(getClass().getResource("/ahorcado_5.png")); break;
-                case 6: miImagen = ImageIO.read(getClass().getResource("/ahorcado_fin.png")); break;
-                case -1:  miImagen = ImageIO.read(getClass().getResource("/acertasteTodo.png")); break;     
-                default: miImagen = ImageIO.read(getClass().getResource("/ahorcado_fin.png")); break;     
-                    
+   private void cambiaImagenAhorcado(){
+       String nombreImagen ="";
+       
+               switch(numeroFallos){
+                case 0: nombreImagen = "/ahorcado_0.png"; break;
+                case 1: nombreImagen = "/ahorcado_1.png"; break;
+                case 2: nombreImagen = "/ahorcado_2.png"; break;
+                case 3: nombreImagen = "/ahorcado_3.png"; break;
+                case 4: nombreImagen = "/ahorcado_4.png"; break;
+                case 5: nombreImagen = "/ahorcado_5.png"; break;
+                case 6: nombreImagen = "/ahorcado_fin.png"; break;
+                case -1:  nombreImagen = "/acertasteTodo.png"; break;     
+                default: nombreImagen = "/ahorcado_fin.png"; break;                  
             } 
-        } catch (IOException ex) {
-            Logger.getLogger(Ahorcado.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        g.drawImage(miImagen, 0, 0, jPanel1.getWidth(), jPanel1.getHeight(),null);
-   }
+       ImageIcon a = new ImageIcon(getClass().getResource(nombreImagen));
+       Image auxiliar = a.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
+       ImageIcon imageIcon = new ImageIcon(auxiliar);
+       jLabel2.setIcon(imageIcon);
+   } 
+           
+//   @Override
+//   public void paint(Graphics g){
+//       super.paint(g);
+//       //con esto indicamos que vamos a dibujar en el panel
+//       g = jLabel2.getGraphics();
+//       Image miImagen = null;
+//        try {
+//            //cargamos una imagen
+//            switch(numeroFallos){
+//                case 0: miImagen = ImageIO.read(getClass().getResource("/ahorcado_0.png")); break;
+//                case 1: miImagen = ImageIO.read(getClass().getResource("/ahorcado_1.png")); break;
+//                case 2: miImagen = ImageIO.read(getClass().getResource("/ahorcado_2.png")); break;
+//                case 3: miImagen = ImageIO.read(getClass().getResource("/ahorcado_3.png")); break;
+//                case 4: miImagen = ImageIO.read(getClass().getResource("/ahorcado_4.png")); break;
+//                case 5: miImagen = ImageIO.read(getClass().getResource("/ahorcado_5.png")); break;
+//                case 6: miImagen = ImageIO.read(getClass().getResource("/ahorcado_fin.png")); break;
+//                case -1:  miImagen = ImageIO.read(getClass().getResource("/acertasteTodo.png")); break;     
+//                default: miImagen = ImageIO.read(getClass().getResource("/ahorcado_fin.png")); break;     
+//                    
+//            } 
+//        } catch (IOException ex) {
+//            Logger.getLogger(Ahorcado.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        g.drawImage(miImagen, 0, 0, jPanel1.getWidth(), jPanel1.getHeight(),null);
+//   }
     
     private void chequeaLetra(JButton boton){
        if(boton.isEnabled()){
@@ -93,7 +111,7 @@ public class Ahorcado extends javax.swing.JFrame {
            
         }
        }
-        repaint();
+        cambiaImagenAhorcado();
     }
             
             
@@ -116,7 +134,6 @@ public class Ahorcado extends javax.swing.JFrame {
         jButton28 = new javax.swing.JButton();
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
         jButton33 = new javax.swing.JButton();
         jButton36 = new javax.swing.JButton();
         jButton37 = new javax.swing.JButton();
@@ -144,6 +161,7 @@ public class Ahorcado extends javax.swing.JFrame {
         jButton60 = new javax.swing.JButton();
         jButton61 = new javax.swing.JButton();
         jButton62 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         jButton22.setText("jButton1");
 
@@ -166,19 +184,6 @@ public class Ahorcado extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("_ _ _ _ _ ");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 358, 66));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 262, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 88, 358, -1));
 
         jButton33.setText("G");
         jButton33.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -395,6 +400,7 @@ public class Ahorcado extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton62, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 500, 70, 40));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 340, 260));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -579,6 +585,6 @@ public class Ahorcado extends javax.swing.JFrame {
     private javax.swing.JButton jButton61;
     private javax.swing.JButton jButton62;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
