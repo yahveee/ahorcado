@@ -8,6 +8,7 @@ para iniciar el juego con una de ellas
 */
 
 import java.awt.Image;
+import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -23,7 +24,7 @@ import javax.swing.JButton;
  */
 public class Ahorcado extends javax.swing.JFrame {
 
-    String palabraOculta = "CETYS";
+    String palabraOculta = "";
     
     //contador para saber el numero de fallos
     int numeroFallos = 0;
@@ -35,8 +36,40 @@ public class Ahorcado extends javax.swing.JFrame {
         initComponents();
         //aqui va el codigo que poniamos en el run en ACM
         cambiaImagenAhorcado();
+        
+        eligePalabraOculta();
+        textoInicio();
     }
-
+    
+    private void eligePalabraOculta(){
+        String [] listaDePalabras = new String[10];
+        Random r = new Random();
+        
+            listaDePalabras[0] = "hormiga";
+            listaDePalabras[1] = "cigarro";
+            listaDePalabras[2] = "magenta";
+            listaDePalabras[3] = "pelo";
+            listaDePalabras[4] = "murcielago";
+            listaDePalabras[5] = "columna";
+            listaDePalabras[6] = "arbol";
+            listaDePalabras[7] = "pelota";
+            listaDePalabras[8] = "portero";
+            listaDePalabras[9] = "cigarra";
+            
+            
+            palabraOculta = listaDePalabras[r.nextInt(9)];
+            System.out.println(palabraOculta);
+    }
+    
+    private void textoInicio(){
+        jLabel1.setText("_ ");
+        for (int i=0;i<palabraOculta.length();i++){
+            jLabel1.setText(jLabel1.getText() +"_ ");
+            
+        }
+    }
+    
+    
    private void cambiaImagenAhorcado(){
        String nombreImagen ="";
        
@@ -86,7 +119,7 @@ public class Ahorcado extends javax.swing.JFrame {
     
     private void chequeaLetra(JButton boton){
        if(boton.isEnabled()){
-        String letra = boton.getText();
+        String letra = boton.getText().toLowerCase();
         boton.setEnabled(false);
         String palabraConGuiones = jLabel1.getText();
         
@@ -400,7 +433,7 @@ public class Ahorcado extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton62, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 500, 70, 40));
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 340, 260));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 210, 260));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
